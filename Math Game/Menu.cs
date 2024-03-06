@@ -7,7 +7,10 @@ namespace Math_Game
         GameEngine GameEngine=new();
         internal void ShowMenu(string name, DateTime date)
         {
+            Console.Clear();
             Console.WriteLine("Welcome " + name + ".Now is " + date + ". This is the math game");
+            Console.WriteLine("Press any key to show menu");
+            Console.ReadLine();
             Console.WriteLine("\n");
             var IsGameOn = true;
             do
@@ -27,7 +30,7 @@ Q: Quit the game");
                 switch (option)
                 {
                     case "v":
-                        Helper.GetGame();
+                        Helper.PrintGames();
                         break;
                     case "a":
                             GameEngine.Addition("Addition");

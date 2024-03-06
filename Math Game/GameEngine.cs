@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Math_Game.Model;
 namespace Math_Game
 {
     internal class GameEngine
@@ -21,6 +21,8 @@ namespace Math_Game
                 b = random.Next(1, 9);
                 Console.WriteLine($"{a}+{b}=");
                 var result = Console.ReadLine();
+                result = Helper.validateResult(result);
+               
                 if (int.Parse(result) == a + b)
                 {
                     Console.WriteLine("You are correct. Press any key to continue");
@@ -36,7 +38,7 @@ namespace Math_Game
 
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, "Addition");
+            Helper.AddToHistory(score, GameType.Addition);
 
 
         }
@@ -55,6 +57,7 @@ namespace Math_Game
                 b = random.Next(1, 9);
                 Console.WriteLine($"{a}-{b}=");
                 var result = Console.ReadLine();
+                result = Helper.validateResult(result);
                 if (int.Parse(result) == a - b)
                 {
                     Console.WriteLine("You are correct. Press any key to continue");
@@ -69,7 +72,7 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, "Subtraction");
+            Helper.AddToHistory(score, GameType.Subtraction);
         }
          internal void Multiplication(string gamemode)
         {
@@ -85,6 +88,7 @@ namespace Math_Game
                 b = random.Next(1, 9);
                 Console.WriteLine($"{a}+{b}=");
                 var result = Console.ReadLine();
+                result = Helper.validateResult(result);
                 if (int.Parse(result) == a * b)
                 {
                     Console.WriteLine("You are correct. Press any key to continue");
@@ -99,7 +103,7 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, "Multiplication");
+            Helper.AddToHistory(score, GameType.Multiplication);
         }
         internal void Division(string gamemode)
         {
@@ -113,6 +117,7 @@ namespace Math_Game
                 int b = DivNumber[1];
                 Console.WriteLine($"{a}/{b}=");
                 var result = Console.ReadLine();
+                result = Helper.validateResult(result);
                 if (int.Parse(result) == a / b)
                 {
                     Console.WriteLine("You are correct. Press any key to continue");
@@ -127,7 +132,7 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, "Division");
+            Helper.AddToHistory(score, GameType.Division);
         }
         internal void Quit(string gamemode)
         {
