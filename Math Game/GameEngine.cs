@@ -10,15 +10,14 @@ namespace Math_Game
     {
        internal void Addition(string gamemode)
         {
-            int a, b;
+            Console.Clear();
             int score = 0;
-            var random = new Random();
+            (string choice, GameLevel level) = Helper.difficultySelect();
             for (int i = 0; i < 5; i++)
             {
+                (int a, int b) = Helper.difficultySeed(choice);
                 Console.Clear();
                 Console.WriteLine("Addition mode");
-                a = random.Next(1, 9);
-                b = random.Next(1, 9);
                 Console.WriteLine($"{a}+{b}=");
                 var result = Console.ReadLine();
                 result = Helper.validateResult(result);
@@ -38,7 +37,7 @@ namespace Math_Game
 
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, GameType.Addition);
+            Helper.AddToHistory(score, GameType.Addition, level);
 
 
         }
@@ -46,15 +45,14 @@ namespace Math_Game
 
         internal void Subtraction(string gamemode)
         {
-            int a, b;
+            Console.Clear();
             int score = 0;
-            var random = new Random();
+            (string choice, GameLevel level) = Helper.difficultySelect();
             for (int i = 0; i < 5; i++)
             {
                 Console.Clear();
+                (int a, int b) = Helper.difficultySeed(choice);
                 Console.WriteLine("Subtraction mode");
-                a = random.Next(1, 9);
-                b = random.Next(1, 9);
                 Console.WriteLine($"{a}-{b}=");
                 var result = Console.ReadLine();
                 result = Helper.validateResult(result);
@@ -72,21 +70,20 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, GameType.Subtraction);
+            Helper.AddToHistory(score, GameType.Subtraction, level);
         }
          internal void Multiplication(string gamemode)
         {
-            Console.WriteLine("You choose multiplication mode");
-            int a, b;
+            Console.Clear();
             int score = 0;
+            (string choice, GameLevel level) = Helper.difficultySelect();
             var random = new Random();
             for (int i = 0; i < 5; i++)
             {
                 Console.Clear();
                 Console.WriteLine("Multiplication mode");
-                a = random.Next(1, 9);
-                b = random.Next(1, 9);
-                Console.WriteLine($"{a}+{b}=");
+                (int a, int b) = Helper.difficultySeed(choice);
+                Console.WriteLine($"{a}*{b}=");
                 var result = Console.ReadLine();
                 result = Helper.validateResult(result);
                 if (int.Parse(result) == a * b)
@@ -103,18 +100,22 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, GameType.Multiplication);
+            Helper.AddToHistory(score, GameType.Multiplication, level);
         }
         internal void Division(string gamemode)
         {
+            Console.Clear();
             int score = 0;
+            (string choice, GameLevel level) = Helper.difficultySelect();
             for (int i = 0; i < 5; i++)
             {
                 Console.Clear();
                 Console.WriteLine(" Division mode");
-                var DivNumber = Helper.GetDivision();
-                int a = DivNumber[0];
-                int b = DivNumber[1];
+                (int a, int b) = Helper.difficultySeed(choice);
+                while (a % b != 0)
+                {
+                    (a, b) = Helper.difficultySeed(choice);
+                }
                 Console.WriteLine($"{a}/{b}=");
                 var result = Console.ReadLine();
                 result = Helper.validateResult(result);
@@ -132,7 +133,7 @@ namespace Math_Game
             }
             Console.WriteLine("your total score is:" + score + ". Press any key to return to the menu");
             Console.ReadLine();
-            Helper.AddToHistory(score, GameType.Division);
+            Helper.AddToHistory(score, GameType.Division, level);
         }
         internal void Quit(string gamemode)
         {

@@ -38,30 +38,14 @@ namespace Math_Game
             }
             return name;
         }
-        internal static int[] GetDivision()
-        {
-            var random = new Random();
-            var a = random.Next(1, 9);
-            var b = random.Next(1, 9);
-            while (a % b != 0)
-            {
-                a = random.Next(1, 9);
-                b = random.Next(1, 9);
-            }
-            var result = new int[2];
-            result[0] = a;
-            result[1] = b;
-
-            return result;
-
-        }
-        internal static void AddToHistory(int score, GameType gameType)
+        internal static void AddToHistory(int score, GameType gameType, GameLevel level)
         {
             games.Add(new Game
             {
                 Date = DateTime.Now,
                 Score = score,
-                Type = gameType
+                Type = gameType,
+                Level = level
             });
         }
         internal static void PrintGames()
@@ -72,7 +56,8 @@ namespace Math_Game
             Console.WriteLine("------------------------\n");
             foreach (var game in games)
             {
-                Console.WriteLine($"{game.Date} - {game.Type}: {game.Score}pts ");
+                Console.WriteLine($"{game.Date} - {game.Type} - {game.Level}: {game.Score}pts ");
+
             }
             Console.WriteLine("Press any key to return to the menu");
             Console.ReadLine();
@@ -80,12 +65,63 @@ namespace Math_Game
 
         internal static string? validateResult(string result)
         {
-            while (string.IsNullOrEmpty(result) || Int32.TryParse(result, out _))
+            while (string.IsNullOrEmpty(result) || !Int32.TryParse(result, out _))
             {
                 Console.WriteLine("Invalid input. Try again!!!!");
                 result = Console.ReadLine();
             }
             return result;
+        }
+        internal static (string, GameLevel) difficultySelect()
+        {
+            GameLevel level = new GameLevel();
+            Console.WriteLine("Please select your difficulty!!!");
+            Console.WriteLine("1: Easy");
+            Console.WriteLine("2: Medium");
+            Console.WriteLine("3: Hard");
+            var choice = Console.ReadLine();
+            while ( choice != "1" && choice != "2" && choice != "3")
+            {
+                Console.WriteLine("Invalid input. Try again");
+                choice = Console.ReadLine();
+            }
+            if (choice == "1"){
+                level = GameLevel.Easy;
+            } else if(choice == "2")
+            {
+                level = GameLevel.Normal;
+            } else if (choice == "3")
+            {
+                level = GameLevel.Hard;
+            }
+            
+            return (choice, level);
+        }
+        internal static (int, int) difficultySeed(string choice)
+        {
+            int a=0, b=0;
+            var random = new Random();
+           
+            if(choice == "1")
+            {
+                a = random.Next(1, 10);
+                b = random.Next(1, 10);
+                
+            }
+            else if(choice == "2")
+            {
+                a = random.Next(10, 99);
+                b = random.Next(10, 99);
+                
+
+            }
+            else if(choice == "3")
+            {
+                a = random.Next(100, 999);
+                b = random.Next(100, 999);
+                
+            }
+            return (a, b);
         }
     }
 }

@@ -6,6 +6,7 @@
         public DateTime Date { get; set; }
         public GameType Type { get; set; }
 
+        public GameLevel Level { get; set; }
     }
     internal enum GameType
     {
@@ -13,5 +14,11 @@
         Subtraction,
         Division,
         Multiplication
+    }
+    internal enum GameLevel
+    {
+        Easy,
+        Normal,
+        Hard
     }
 }
